@@ -22,7 +22,7 @@ Then load the `extension/` directory in `chrome://extensions`.
 - **Obsidian**: Settings → Local REST API → enable the non-encrypted (HTTP) server and copy the API key into the extension's Settings (URL `http://127.0.0.1:27123`). Set the vault name so `obsidian://` links open the right vault.
 - **Anthropic API key**: only needed for "Find more with Claude".
 
-Copy [`config.example.json`](config.example.json), fill in keys, then Settings → **Import…**. **Export** writes the same format, including secrets — keep it off git.
+Copy [`../configs/vault-context.example.json`](../configs/vault-context.example.json), fill in keys, then Settings → **Import…**.
 
 ## Notes
 

@@ -19,7 +19,7 @@ Then load the `extension/` directory in `chrome://extensions`.
 - **GitHub token**: a fine-grained PAT with Issues (write) on the repos you map, plus Contents (write) for branch screenshots and Projects (write) for project boards. Classic `repo` + `project` scopes also work. For an organization, create the token with that org as the resource owner (it may need org approval); a classic token needs SSO authorization if the org enforces it.
 - **Sites → repos**: one line per app, `host owner/repo [project number] [service="…"] [dir="…"] [labels="…"]`. Subdomains match, so `app.example.com` also covers `dev.app.example.com`; `=host` matches that host only, and `:port` / `/path` narrow a line (`localhost:3000`, `api.example.com/v1`). The most specific line wins.
 
-Copy [`config.example.json`](config.example.json), fill in keys and mappings, then Settings → **Import…**. **Export** writes the same format, including secrets — keep it off git.
+Copy [`../configs/bug-capture.example.json`](../configs/bug-capture.example.json), fill in keys and mappings, then Settings → **Import…**.
 
 ## How it works
 

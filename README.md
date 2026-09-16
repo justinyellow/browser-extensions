@@ -63,26 +63,29 @@ Repeat Load unpacked for each extension you use.
 
 Click the puzzle-piece icon → the extension → **Settings** (or Details → Extension options).
 
-- All three: paste your **Anthropic API key** if the feature uses Claude
-- **Tab Organizer:** grouping works with just that key. Obsidian is off until you enable it in Settings
-- **Bug Capture:** also needs a GitHub token and a host → repo map (or import a JSON config)
-- **Vault Context:** needs the Obsidian Local REST API key (this one is for vault users)
+Paste keys in the form, or copy a template from [`configs/`](configs/), fill it in, and use **Import…**.
+
+- **Tab Organizer:** grouping needs an Anthropic API key. Obsidian is off until you enable it
+- **Bug Capture:** Anthropic key, GitHub token, and a host → repo map
+- **Vault Context:** Obsidian Local REST API key (Anthropic only for “Find more with Claude”)
 
 After `git pull`, run `npm run build` in that folder again and click **Reload** on the extension card.
 
-## Config files
+## Config templates
 
-Settings (including API keys) live in Chrome storage. To copy them between machines, or to load a prepared mapping:
+There are no personal keys or host maps in this repo. Start from [`configs/*.example.json`](configs/):
 
-1. Copy `config.example.json` from the extension folder.
-2. Fill in keys and your own host → repo / vault settings. Do **not** commit the filled file (`*.config.json` and `*.local.json` are gitignored).
-3. Open the extension's Settings page → **Import…** and pick the JSON.
+```bash
+cp configs/tab-organizer.example.json tab-organizer.local.json
+```
 
-**Export** on the same page downloads the current settings as `<extension>.config.json`. Treat that file like a password.
+Fill in keys (and for Bug Capture, your own sites). Settings → **Import…**. Do **not** commit the filled file.
 
-The `extension` field in the JSON must match the extension (`bug-capture`, `tab-organizer`, or `vault-context`). Unknown keys are ignored.
+**Export** downloads the current settings as `<extension>.config.json`. Treat that like a password.
 
-Obsidian-backed extensions index the folders you list in Settings (default is [PARA](https://fortelabs.com/blog/para/): `00-Inbox`, `10-Areas`, `20-Projects`, `30-Resources`). The first folder is the inbox for new notes and digests.
+The `extension` field must match (`bug-capture`, `tab-organizer`, or `vault-context`). Unknown keys are ignored.
+
+Obsidian-backed extensions index the folders you list in Settings (default is [PARA](https://fortelabs.com/blog/para/): `00-Inbox`, `10-Areas`, `20-Projects`, `30-Resources`). The first folder is the inbox.
 
 ## Privacy and the Chrome Web Store
 

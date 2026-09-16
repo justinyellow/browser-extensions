@@ -32,7 +32,7 @@
       <label>Sites → repos
         <textarea name="repoMap" rows="16" spellcheck="false" wrap="off"></textarea>
       </label>
-      <p class="muted">One per line: <code>host owner/repo [project number] [service="App"] [dir="frontend"] [labels="stack: app"]</code>. Subdomains of the host match too; prefix with <code>=</code> for that host only. Add <code>:port</code> or <code>/path</code> to narrow it (<code>localhost:3000</code>, <code>api.example.com/v1</code>). The most specific line wins. Lines starting with <code>#</code> are ignored. <code>service</code> prefixes the issue title and tells Claude where the code lives; <code>labels</code> are added to the issue. See <code>config.example.json</code> in the repo.</p>
+      <p class="muted">One per line: <code>host owner/repo [project number] [service="App"] [dir="frontend"] [labels="stack: app"]</code>. Subdomains of the host match too; prefix with <code>=</code> for that host only. Add <code>:port</code> or <code>/path</code> to narrow it (<code>localhost:3000</code>, <code>api.example.com/v1</code>). The most specific line wins. Lines starting with <code>#</code> are ignored. <code>service</code> prefixes the issue title and tells Claude where the code lives; <code>labels</code> are added to the issue. A blank template lives in the repo as <code>configs/bug-capture.example.json</code>.</p>
       <label>Labels to add (comma separated)
         <input type="text" name="labels">
       </label>
