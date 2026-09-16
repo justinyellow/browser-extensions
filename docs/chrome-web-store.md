@@ -1,32 +1,24 @@
-# Chrome Web Store listing
+# First publish (Chrome Web Store)
 
-The extensions are loadable unpacked today. Use this checklist if you publish later.
+The $5 developer fee is paid. First upload of each extension is still **dashboard-only**. The API can update items after they exist.
 
-## Required for each listing
+**Dashboard:** [Developer Console](https://chrome.google.com/webstore/devconsole/bb4c112f-837a-4a5c-83ad-410fc9776260)  
+**Publisher ID:** `bb4c112f-837a-4a5c-83ad-410fc9776260`  
+**Privacy policy URL:** https://github.com/justinyellow/claude-browser-extensions/blob/main/PRIVACY.md  
+**Support / homepage:** https://github.com/justinyellow/claude-browser-extensions
 
-- [ ] Unique name, short description, and 128×128 icon (already in each `extension/icons/`)
-- [ ] Screenshots (1280×800 or 640×400) of the popup and Settings
-- [ ] Privacy policy URL pointing at [`PRIVACY.md`](../PRIVACY.md) on the default branch (raw or GitHub Pages)
-- [ ] Single-purpose description: one store listing per extension folder, not one listing for the whole repo
-- [ ] Permission justifications for `tabs`, `storage`, `<all_urls>` / host permissions, `scripting`, and (where used) `tabGroups`, `bookmarks`, `alarms`, `contextMenus`
-
-## Data-use disclosures
-
-State that:
-
-- Anthropic API keys and GitHub tokens are supplied by the user and stored only in Chrome local storage
-- Page content is sent to Anthropic only to run that user-triggered feature
-- Bug Capture posts issues to GitHub only after an explicit **Create issue** click
-- Obsidian traffic stays on localhost unless the user points the REST URL elsewhere
-
-## Packaging
+Create **three** items. Zip files (manifest at the zip root):
 
 ```bash
-cd tab-organizer && npm ci && npm run build && zip -r ../tab-organizer.zip extension
+npm run pack
 ```
 
-Repeat for `bug-capture` and `vault-context`. Zip only the `extension/` folder.
+Produces `dist/bug-capture.zip`, `dist/tab-organizer.zip`, `dist/vault-context.zip`.
 
-## Review notes
+For each item: **Add new item** → upload zip → fill Store listing + Privacy using [store-listings.md](store-listings.md) → Distribution: public (or unlisted first) → Submit for review.
 
-Do not include real API keys, private host maps, or company-internal URLs in screenshots or the uploaded zip.
+2-step verification must be on for the Google account that publishes.
+
+## Later updates (API)
+
+After the first public publish, bump `version` in that extension’s `manifest.json`, run `npm run pack`, then [upload + publish via the v2 API](https://developer.chrome.com/docs/webstore/using-api). Visibility cannot be changed through the API until you have published that visibility once in the dashboard.

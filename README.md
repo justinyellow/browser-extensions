@@ -50,7 +50,7 @@ Obsidian-backed extensions index the folders you list in Settings (default is [P
 ## Privacy and the Chrome Web Store
 
 - [Privacy policy](PRIVACY.md) — what stays on device vs what is sent to Anthropic, GitHub, or local Obsidian
-- [Chrome Web Store checklist](docs/chrome-web-store.md) if you publish a listing later
+- [First publish](docs/chrome-web-store.md) and [store listing copy](docs/store-listings.md) for the Chrome Web Store
 
 ## Development
 

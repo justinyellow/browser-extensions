@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
   "name": "Claude Tab Organizer",
-  "version": "0.4.0",
+  "version": "1.0.0",
   "description": "Continuously sorts your tabs into topic groups using Claude.",
+  "homepage_url": "https://github.com/justinyellow/claude-browser-extensions",
   "permissions": [
     "tabs",
     "tabGroups",
