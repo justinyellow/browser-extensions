@@ -1,0 +1,15 @@
+{
+  "name": "vault-context",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Chrome extension that shows which Obsidian notes relate to the page you're on and clips selections, tables and links into them",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.125.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}

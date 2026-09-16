@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Tab Organizer Settings</title>
+  <link rel="icon" href="icons/icon32.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="options">
+  <h1>Tab Organizer Settings</h1>
+  <form id="form">
+    <label>Anthropic API key
+      <input type="password" name="apiKey" placeholder="sk-ant-..." autocomplete="off">
+    </label>
+    <label>Model
+      <select name="model">
+        <option value="claude-opus-5">Claude Opus 5 (best grouping)</option>
+        <option value="claude-sonnet-5">Claude Sonnet 5 (cheaper)</option>
+        <option value="claude-haiku-4-5">Claude Haiku 4.5 (cheapest, fastest)</option>
+      </select>
+    </label>
+    <label class="row"><input type="checkbox" name="autoOrganize"> Auto-organize new tabs</label>
+    <label>Seconds to wait after a page loads before organizing
+      <input type="number" name="debounceSeconds" min="2" max="120">
+    </label>
+    <label>Background sweep every N minutes
+      <input type="number" name="intervalMinutes" min="1" max="120">
+    </label>
+    <label class="row"><input type="checkbox" name="sendPageText"> Send a short page text snippet (better grouping; otherwise title + URL only)</label>
+    <label class="row"><input type="checkbox" name="collapseInactive"> Collapse groups except the one you're in</label>
+    <label class="row"><input type="checkbox" name="closeDuplicates"> Close duplicate tabs (keeps the one you used most recently)</label>
+    <label class="row"><input type="checkbox" name="cleanupStale"> Clean up stale tabs: Claude bookmarks the ones worth keeping, closes the clutter</label>
+    <label>A tab is stale after this many days unviewed
+      <input type="number" name="staleDays" min="1" max="60">
+    </label>
+    <p class="muted">Saved tabs go to Other bookmarks › Tab Organizer › (group name). Everything closed is listed in the popup and can be reopened.</p>
+    <fieldset>
+      <legend>Obsidian</legend>
+      <label class="row"><input type="checkbox" name="obsidianEnabled"> Save kept tabs as notes in my vault (falls back to bookmarks when Obsidian is closed)</label>
+      <label>Local REST API URL
+        <input type="text" name="obsidianUrl">
+      </label>
+      <label>Local REST API key
+        <input type="password" name="obsidianApiKey" autocomplete="off">
+      </label>
+      <label>Vault folders to index (first folder is the inbox)
+        <textarea name="vaultFolders" rows="4" spellcheck="false"></textarea>
+      </label>
+      <p class="muted">One folder per line. Notes outside these folders are ignored. Default is PARA: Inbox, Areas, Projects, Resources.</p>
+      <label class="row"><input type="checkbox" name="digestEnabled"> Write a daily browsing digest to the inbox folder</label>
+      <label>Write the digest after this hour (0-23)
+        <input type="number" name="digestHour" min="0" max="23">
+      </label>
+      <div class="row"><button type="button" id="testObsidian" class="secondary">Test connection</button> <span id="obsidianResult" class="muted"></span></div>
+    </fieldset>
+    <label>Ignored domains (never sent to Claude, never grouped)
+      <textarea name="ignoredDomains" rows="3" placeholder="mybank.com, mail.google.com"></textarea>
+    </label>
+    <label>Grouping preferences
+      <textarea name="customInstructions" rows="4" placeholder="e.g. Keep work separate from personal. Put all shopping in one group."></textarea>
+    </label>
+    <fieldset>
+      <legend>Config file</legend>
+      <p class="muted">Import a JSON file with keys and settings, or export the current ones to another machine. The file can contain secrets — do not commit it.</p>
+      <div class="row">
+        <button type="button" id="exportConfig" class="secondary">Export</button>
+        <button type="button" id="importConfig" class="secondary">Import…</button>
+        <input type="file" id="importFile" accept="application/json,.json" hidden>
+        <span id="configResult" class="muted"></span>
+      </div>
+    </fieldset>
+    <button type="submit">Save</button>
+    <span id="saved" class="muted"></span>
+  </form>
+  <script src="options.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+node_modules/
+*.local.json
+*.config.json
+!config.example.json
+extension/background.js
+extension/popup.js
+extension/options.js
+extension/picker.js
+extension/content.js

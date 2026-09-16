@@ -1,0 +1,11 @@
+export const DEFAULTS = {
+  obsidianUrl: "http://127.0.0.1:27123",
+  obsidianApiKey: "",
+  vaultName: "vault",
+  apiKey: "",
+  model: "claude-haiku-4-5",
+  ignoredDomains: "google.com, mail.google.com, youtube.com, localhost",
+  ignoredTerms: "",
+  clipHeading: true,
+  vaultFolders: "00-Inbox\n10-Areas\n20-Projects\n30-Resources",
+};

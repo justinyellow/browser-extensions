@@ -1,0 +1,9 @@
+{
+  "name": "claude-browser-extensions",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test shared/*.test.js",
+    "build": "npm run build --prefix bug-capture && npm run build --prefix tab-organizer && npm run build --prefix vault-context"
+  }
+}

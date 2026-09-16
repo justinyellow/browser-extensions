@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Bug Capture Settings</title>
+  <link rel="icon" href="icons/icon32.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="options">
+  <h1>Bug Capture Settings</h1>
+  <form id="form">
+    <fieldset>
+      <legend>Claude</legend>
+      <label>Anthropic API key
+        <input type="password" name="apiKey" placeholder="sk-ant-..." autocomplete="off">
+      </label>
+      <label>Model
+        <select name="model">
+          <option value="claude-sonnet-5">Claude Sonnet 5</option>
+          <option value="claude-opus-5">Claude Opus 5</option>
+          <option value="claude-haiku-4-5">Claude Haiku 4.5</option>
+        </select>
+      </label>
+    </fieldset>
+    <fieldset>
+      <legend>GitHub</legend>
+      <label>Personal access token
+        <input type="password" name="githubToken" placeholder="github_pat_... or ghp_..." autocomplete="off">
+      </label>
+      <p class="muted">Needs: Issues (write) and Contents (write) on the mapped repos, plus Projects (write) if you set project numbers. A classic token with <code>repo</code> + <code>project</code> scopes also works.</p>
+      <div class="row"><button type="button" id="testGithub" class="secondary">Test token</button> <span id="githubResult" class="muted"></span></div>
+      <label>Sites → repos
+        <textarea name="repoMap" rows="16" spellcheck="false" wrap="off"></textarea>
+      </label>
+      <p class="muted">One per line: <code>host owner/repo [project number] [service="App"] [dir="frontend"] [labels="stack: app"]</code>. Subdomains of the host match too; prefix with <code>=</code> for that host only. Add <code>:port</code> or <code>/path</code> to narrow it (<code>localhost:3000</code>, <code>api.example.com/v1</code>). The most specific line wins. Lines starting with <code>#</code> are ignored. <code>service</code> prefixes the issue title and tells Claude where the code lives; <code>labels</code> are added to the issue. See <code>config.example.json</code> in the repo.</p>
+      <label>Labels to add (comma separated)
+        <input type="text" name="labels">
+      </label>
+      <label>Project Status value for new issues (when a project number is set)
+        <input type="text" name="statusValue">
+      </label>
+      <label>Screenshots
+        <select name="screenshotMode">
+          <option value="attach">Attach to the issue (uploaded through github.com in a background tab)</option>
+          <option value="branch">Commit to a branch in the repo</option>
+        </select>
+      </label>
+      <label>Branch to commit screenshots on (branch mode only)
+        <input type="text" name="screenshotBranch">
+      </label>
+    </fieldset>
+    <label>Project conventions for Claude (optional)
+      <textarea name="customInstructions" rows="3" placeholder="e.g. Roles are: admin, operator. Backend is FastAPI at /api."></textarea>
+    </label>
+    <fieldset>
+      <legend>Config file</legend>
+      <p class="muted">Import a JSON file with keys and mappings, or export the current settings to another machine. The file can contain secrets — do not commit it.</p>
+      <div class="row">
+        <button type="button" id="exportConfig" class="secondary">Export</button>
+        <button type="button" id="importConfig" class="secondary">Import…</button>
+        <input type="file" id="importFile" accept="application/json,.json" hidden>
+        <span id="configResult" class="muted"></span>
+      </div>
+    </fieldset>
+    <button type="submit">Save</button>
+    <span id="saved" class="muted"></span>
+  </form>
+  <script src="options.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "bug-capture",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Chrome extension that turns a bug you just saw in one of your own apps into a GitHub issue",
+  "scripts": {
+    "build": "node build.mjs"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.125.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}

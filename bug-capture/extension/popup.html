@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="popup">
+  <h1>Bug Capture</h1>
+  <p id="target" class="muted"></p>
+
+  <div id="stepNote">
+    <label>What went wrong?
+      <textarea id="note" rows="3" placeholder="e.g. Saving a crew member with no phone number shows a blank error toast"></textarea>
+    </label>
+    <label class="row"><input type="checkbox" id="screenshot" checked> Include screenshot of visible page</label>
+    <button id="capture">Capture &amp; draft issue</button>
+  </div>
+
+  <div id="stepDraft" hidden>
+    <label>Title <input type="text" id="title"></label>
+    <label>Severity
+      <select id="severity">
+        <option value="blocker">blocker</option>
+        <option value="high">high</option>
+        <option value="medium">medium</option>
+        <option value="low">low</option>
+      </select>
+    </label>
+    <label>Body (edit freely)
+      <textarea id="body" rows="12"></textarea>
+    </label>
+    <div class="actions">
+      <button id="submit">Create issue</button>
+      <button id="discard" class="secondary">Discard</button>
+    </div>
+  </div>
+
+  <p id="status" class="muted"></p>
+  <button id="copyScreenshot" class="secondary" hidden>Copy screenshot</button>
+  <details>
+    <summary>Recent issues</summary>
+    <ul id="recent"></ul>
+  </details>
+  <a href="#" id="options">Settings</a>
+  <script src="popup.js" type="module"></script>
+</body>
+</html>

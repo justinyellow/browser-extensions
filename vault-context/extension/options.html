@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Vault Context Settings</title>
+  <link rel="icon" href="icons/icon32.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="options">
+  <h1>Vault Context Settings</h1>
+  <form id="form">
+    <fieldset>
+      <legend>Obsidian</legend>
+      <label>Local REST API URL
+        <input type="text" name="obsidianUrl">
+      </label>
+      <label>Local REST API key
+        <input type="password" name="obsidianApiKey" autocomplete="off">
+      </label>
+      <label>Vault name (for obsidian:// links)
+        <input type="text" name="vaultName">
+      </label>
+      <div class="row"><button type="button" id="testObsidian" class="secondary">Test connection</button> <span id="obsidianResult" class="muted"></span></div>
+      <label>Vault folders to index (first folder is the inbox)
+        <textarea name="vaultFolders" rows="4" spellcheck="false"></textarea>
+      </label>
+      <p class="muted">One folder per line. New clips and lookups stay inside these folders. Default is PARA: Inbox, Areas, Projects, Resources.</p>
+      <label class="row"><input type="checkbox" name="clipHeading"> Put each clip under a "## Clipped from …" heading (otherwise a plain Source line)</label>
+    </fieldset>
+    <fieldset>
+      <legend>Claude (optional, for "Find more with Claude")</legend>
+      <label>Anthropic API key
+        <input type="password" name="apiKey" placeholder="sk-ant-..." autocomplete="off">
+      </label>
+      <label>Model
+        <select name="model">
+          <option value="claude-haiku-4-5">Claude Haiku 4.5 (fast, cheap)</option>
+          <option value="claude-sonnet-5">Claude Sonnet 5</option>
+          <option value="claude-opus-5">Claude Opus 5</option>
+        </select>
+      </label>
+    </fieldset>
+    <label>Ignored domains (no badge lookups)
+      <textarea name="ignoredDomains" rows="3"></textarea>
+    </label>
+    <label>Ignored site-name terms (never used as search terms, e.g. your own domain)
+      <input type="text" name="ignoredTerms">
+    </label>
+    <fieldset>
+      <legend>Config file</legend>
+      <p class="muted">Import a JSON file with keys and settings, or export the current ones to another machine. The file can contain secrets — do not commit it.</p>
+      <div class="row">
+        <button type="button" id="exportConfig" class="secondary">Export</button>
+        <button type="button" id="importConfig" class="secondary">Import…</button>
+        <input type="file" id="importFile" accept="application/json,.json" hidden>
+        <span id="configResult" class="muted"></span>
+      </div>
+    </fieldset>
+    <button type="submit">Save</button>
+    <span id="saved" class="muted"></span>
+  </form>
+  <script src="options.js" type="module"></script>
+</body>
+</html>

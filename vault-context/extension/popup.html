@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="popup">
+  <h1>Vault Context</h1>
+  <p id="status" class="muted"></p>
+  <ul id="notes" class="notes"></ul>
+  <div class="actions">
+    <button id="matchClaude" class="secondary">Find more with Claude</button>
+    <button id="refresh" class="secondary">Refresh</button>
+  </div>
+  <h2>Clip into a note</h2>
+  <div class="actions">
+    <button id="clipSelection">Selection</button>
+    <button id="clipTable">Table</button>
+    <button id="clipLink">Page link</button>
+  </div>
+  <details>
+    <summary>Recent clips</summary>
+    <ul id="clips" class="notes"></ul>
+  </details>
+  <a href="#" id="options">Settings</a>
+  <script src="popup.js" type="module"></script>
+</body>
+</html>

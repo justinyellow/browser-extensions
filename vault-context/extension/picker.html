@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Clip to Obsidian</title>
+  <link rel="icon" href="icons/icon32.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="picker">
+  <h1 id="heading">Clip to Obsidian</h1>
+  <pre id="preview" class="preview"></pre>
+  <input type="text" id="search" placeholder="Search notes… (Enter picks the first)" autofocus>
+  <div class="scroll">
+    <h2 id="suggestedHeading">Suggested</h2>
+    <ul id="suggested" class="notes"></ul>
+    <h2>All notes</h2>
+    <ul id="all" class="notes"></ul>
+  </div>
+  <div class="actions">
+    <button id="newNote" class="secondary">New note in inbox from search text</button>
+  </div>
+  <p id="status" class="muted"></p>
+  <script src="picker.js" type="module"></script>
+</body>
+</html>
