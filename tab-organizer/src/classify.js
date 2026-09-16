@@ -11,7 +11,10 @@ const GROUP_SCHEMA = {
         type: "object",
         properties: {
           tabId: { type: "integer" },
-          group: { type: "string" },
+          group: {
+            type: "string",
+            description: 'Existing group name to reuse, a new specific name, or "" to leave the tab ungrouped.',
+          },
           color: { type: "string", enum: COLORS },
         },
         required: ["tabId", "group", "color"],
@@ -46,14 +49,23 @@ const TRIAGE_SCHEMA = {
 
 const GROUP_SYSTEM = `You organize a user's open browser tabs into Chrome tab groups.
 
-Rules:
-- Group by topic or task (e.g. "Work", "Shopping", "Taxes", "React docs"), not by website, unless a site is itself the task (e.g. "Email").
-- Group names: 1-2 words, Title Case, short enough to read on a tab strip.
-- Strongly prefer an existing group when a tab fits it; reuse its exact name and color. A tab listed with a current group should stay there unless its content now clearly belongs elsewhere.
-- If a group name from another window fits, reuse that exact name and color so naming stays consistent.
-- Aim for a handful of meaningful groups. Merge near-duplicates rather than creating lots of tiny groups.
-- Pick a distinct color for each new group where possible.
-- Return exactly one assignment for every tab listed under "Tabs to place".`;
+Tabs belong together when they are about the same specific thing: one project, product, purchase, trip, document, codebase, incident, or question. Sharing an abstract theme - planning, research, work, admin, learning - is not a reason to group tabs together.
+
+Placing tabs:
+- Put a tab in an existing group only if it is about the same specific thing as the tabs already in that group. Judge from the sample titles: if the tab would be the odd one out when the user opens that group, it does not belong there.
+- Leave a tab ungrouped by returning "" as the group when nothing genuinely fits. Ungrouped is the right answer for one-off lookups, a single unrelated article, or anything you would only place by stretching a group's meaning. A wrong group costs the user more than no group.
+- Create a new group only when at least two tabs in this batch are about the same specific thing.
+- A tab that already has a current group stays in it unless its content now clearly belongs elsewhere.
+- Group by what the tab is for, not by website, unless the site itself is the task (e.g. "Email").
+
+Naming:
+- Name a new group after the thing itself: "Lisbon Trip", "Kafka Docs", "Kitchen Reno", "Tax Return".
+- Never invent a vague catch-all name such as Planning, Research, Work, Personal, Admin, General, Misc, Reading, Shopping or Projects. If that is the only name you can think of, the tabs do not belong together - leave them ungrouped.
+- 1-3 words, Title Case, short enough to read on a tab strip.
+- Reuse an existing group's exact name and color, including names used in other windows, when it is the same specific thing.
+- Give each new group a color not already used.
+
+Return exactly one assignment for every tab listed under "Tabs to place".`;
 
 const TRIAGE_SYSTEM = `You help a user clean up browser tabs they haven't looked at in days. Each tab will be closed; decide whether it is worth saving as a bookmark first.
 
@@ -92,9 +104,11 @@ function withPreferences(settings, prompt) {
 }
 
 export async function classifyTabs(settings, { existingGroups, otherWindowGroups, tabs }) {
+  // Sample titles are what the model judges "same specific thing" against, so show the group's size too:
+  // a broad name with six unrelated titles should not attract more tabs.
   const groupLines = existingGroups.length
     ? existingGroups
-        .map((g) => `- "${g.title}" (${g.color}): ${g.sampleTitles.slice(0, 5).join(" | ")}`)
+        .map((g) => `- "${g.title}" (${g.color}, ${g.sampleTitles.length} tabs): ${g.sampleTitles.slice(0, 6).join(" | ")}`)
         .join("\n")
     : "(none)";
   const otherLines = otherWindowGroups.length
