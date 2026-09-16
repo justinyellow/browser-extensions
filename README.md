@@ -4,7 +4,7 @@ Chrome extensions that use Claude (and optionally Obsidian) to file bugs, group 
 
 | Extension | What it does |
 |-----------|--------------|
-| [tab-organizer](tab-organizer/) | Groups tabs by topic with Claude, cleans up stale/duplicate tabs, saves keepers and a daily browsing digest to Obsidian |
+| [tab-organizer](tab-organizer/) | Groups tabs by topic with Claude, cleans up stale/duplicate tabs; Obsidian notes and digest are opt-in |
 | [bug-capture](bug-capture/) | Files a bug in one of your deployed apps as a GitHub issue: screenshot, console/network log, Claude-written repro steps, project board fields |
 | [vault-context](vault-context/) | Badge showing which Obsidian notes relate to the current page; clip selections, tables and links into a note |
 

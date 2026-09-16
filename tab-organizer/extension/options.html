@@ -35,8 +35,9 @@
     </label>
     <p class="muted">Saved tabs go to Other bookmarks › Tab Organizer › (group name). Everything closed is listed in the popup and can be reopened.</p>
     <fieldset>
-      <legend>Obsidian</legend>
-      <label class="row"><input type="checkbox" name="obsidianEnabled"> Save kept tabs as notes in my vault (falls back to bookmarks when Obsidian is closed)</label>
+      <legend>Obsidian (optional)</legend>
+      <p class="muted">Off by default. Enable this only if you use Obsidian with the Local REST API plugin. Otherwise kept tabs are saved as Chrome bookmarks.</p>
+      <label class="row"><input type="checkbox" name="obsidianEnabled"> Save kept tabs as notes in my vault</label>
       <label>Local REST API URL
         <input type="text" name="obsidianUrl">
       </label>

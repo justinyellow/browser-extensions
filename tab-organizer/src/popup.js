@@ -2,13 +2,16 @@ const $ = (id) => document.getElementById(id);
 const LABELS = { save: "Bookmarked", obsidian: "Saved to Obsidian", close: "Closed", duplicate: "Duplicate" };
 
 async function render() {
-  const { status = {}, autoOrganize = true, apiKey, cleaned = [] } = await chrome.storage.local.get([
+  const { status = {}, autoOrganize = true, apiKey, obsidianEnabled = false, cleaned = [] } = await chrome.storage.local.get([
     "status",
     "autoOrganize",
     "apiKey",
+    "obsidianEnabled",
     "cleaned",
   ]);
   $("autoOrganize").checked = autoOrganize;
+  $("saveTab").hidden = !obsidianEnabled;
+  $("digest").hidden = !obsidianEnabled;
   const busy = !!status.running;
   for (const id of ["organize", "saveTab", "digest", "regroup", "cleanup", "ungroup"]) $(id).disabled = busy;
 

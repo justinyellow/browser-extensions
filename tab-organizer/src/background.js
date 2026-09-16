@@ -15,6 +15,12 @@ async function getSettings() {
   return { ...DEFAULTS, ...(await chrome.storage.local.get(Object.keys(DEFAULTS))) };
 }
 
+async function syncContextMenus() {
+  await chrome.contextMenus.removeAll();
+  if (!(await getSettings()).obsidianEnabled) return;
+  chrome.contextMenus.create({ id: "save-to-obsidian", title: "Save page to Obsidian", contexts: ["page"] });
+}
+
 async function setStatus(patch) {
   const { status = {} } = await chrome.storage.local.get("status");
   await chrome.storage.local.set({ status: { ...status, ...patch } });
@@ -423,8 +429,7 @@ async function writeDigestNow() {
 
 chrome.runtime.onInstalled.addListener(async ({ reason }) => {
   await syncAlarm();
-  await chrome.contextMenus.removeAll();
-  chrome.contextMenus.create({ id: "save-to-obsidian", title: "Save page to Obsidian", contexts: ["page"] });
+  await syncContextMenus();
   if (reason === "install") chrome.runtime.openOptionsPage();
 });
 chrome.runtime.onStartup.addListener(async () => {
@@ -463,7 +468,9 @@ chrome.tabs.onActivated.addListener(async ({ tabId, windowId }) => {
 });
 
 chrome.storage.onChanged.addListener((changes, area) => {
-  if (area === "local" && (changes.autoOrganize || changes.intervalMinutes)) syncAlarm();
+  if (area !== "local") return;
+  if (changes.autoOrganize || changes.intervalMinutes) syncAlarm();
+  if (changes.obsidianEnabled) syncContextMenus();
 });
 
 chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {

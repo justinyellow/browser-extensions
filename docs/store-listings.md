@@ -16,7 +16,7 @@ Groups open Chrome tabs by topic with Claude, closes duplicates and stale tabs, 
 
 Claude Tab Organizer watches your open tabs and puts them into named Chrome tab groups by topic.
 
-You supply your own Anthropic API key in Settings (or import a JSON config file). Optional Obsidian Local REST API support saves tabs worth keeping as notes and can write a daily browsing digest. Vault folders are configurable; PARA (Inbox / Areas / Projects / Resources) is the default.
+You supply your own Anthropic API key in Settings (or import a JSON config file). Obsidian is optional and off until you turn it on in Settings; then kept tabs can be saved as notes and a daily digest can be written. Vault folders are configurable; PARA (Inbox / Areas / Projects / Resources) is the default.
 
 The extension can auto-organize after a page loads, close duplicate tabs, and triage tabs you have not viewed in days. Ignored domains are never sent to Claude.
 
@@ -33,7 +33,7 @@ Source: https://github.com/justinyellow/claude-browser-extensions
 - **storage:** Save settings, API keys, and recent cleanup history on this device.
 - **alarms / idle:** Periodic organize and digest runs.
 - **scripting:** Optional short page-text snippet for better grouping (can be turned off).
-- **bookmarks:** Fall back when Obsidian is not available; saved tabs go under Other bookmarks.
+- **bookmarks:** Save kept tabs when Obsidian is not enabled.
 - **contextMenus:** Toolbar/context actions for organize/save.
 - **Host access (all sites):** Needed to read the current tab’s title, URL, and optional snippet on whatever site you have open. No remote code is injected from a server. You can exclude sites via ignored domains.
 

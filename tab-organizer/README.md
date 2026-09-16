@@ -1,6 +1,6 @@
 # Claude Tab Organizer
 
-Chrome extension that groups tabs by topic with Claude, cleans up stale and duplicate tabs, and saves tabs worth keeping as notes in an Obsidian vault.
+Chrome extension that groups tabs by topic with Claude, cleans up stale and duplicate tabs, and can optionally save tabs worth keeping as notes in Obsidian.
 
 ## Install
 
@@ -16,8 +16,8 @@ After pulling changes, run `npm run build` again and click reload on the extensi
 ## Setup
 
 - **Anthropic API key**: extension Settings, or import a config file.
-- **Obsidian** (optional): in Obsidian, Settings → Local REST API → enable the non-encrypted (HTTP) server and copy the API key. Paste the key into the extension's Settings with URL `http://127.0.0.1:27123`.
+- **Obsidian** (optional, off by default): in Settings, enable “Save kept tabs as notes”, then in Obsidian turn on Local REST API (HTTP) and paste the key. URL is usually `http://127.0.0.1:27123`. Without this, kept tabs go to Chrome bookmarks.
 
 Copy [`config.example.json`](config.example.json), fill in keys, then Settings → **Import…**. **Export** writes the same format, including secrets — keep it off git.
 
-Settings are stored per machine; notes sync between machines through Obsidian LiveSync (or whatever you use). Vault folders (inbox, areas, projects, resources, or your own list) are configurable in Settings.
+Settings are stored per machine. If you enable Obsidian, notes sync however your vault syncs. Vault folders are configurable.
