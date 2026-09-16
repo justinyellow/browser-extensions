@@ -47,6 +47,36 @@ async function markProcessed(tabs) {
   await chrome.storage.session.set({ processed });
 }
 
+// windowId -> when the user last used the window, and when we last re-checked its
+// ungrouped tabs. Session-scoped, so a browser restart starts everyone fresh.
+async function getWindowActivity() {
+  const { touched = {}, rechecked = {} } = await chrome.storage.session.get(["touched", "rechecked"]);
+  return { touched, rechecked };
+}
+
+async function touchWindow(windowId) {
+  if (typeof windowId !== "number" || windowId === chrome.windows.WINDOW_ID_NONE) return;
+  const { touched } = await getWindowActivity();
+  touched[windowId] = Date.now();
+  await chrome.storage.session.set({ touched });
+}
+
+async function markRechecked(windowId) {
+  const { rechecked } = await getWindowActivity();
+  rechecked[windowId] = Date.now();
+  await chrome.storage.session.set({ rechecked });
+}
+
+// A window earns a re-check once the interval has passed AND the user has actually
+// used it since the last one, so windows sitting idle in the background cost nothing.
+function shouldRecheck(windowId, settings, { touched, rechecked }) {
+  const minutes = Number(settings.recheckMinutes) || 0;
+  if (minutes <= 0) return false;
+  const last = rechecked[windowId] || 0;
+  if ((touched[windowId] || 0) <= last) return false;
+  return Date.now() - last >= minutes * 60 * 1000;
+}
+
 function parseIgnored(settings) {
   return settings.ignoredDomains
     .split(/[\s,]+/)
@@ -104,11 +134,12 @@ async function getSnippet(tab) {
   }
 }
 
-async function organizeWindow(windowId, { full }, settings, groupColors) {
+async function organizeWindow(windowId, { full }, settings, groupColors, activity) {
   const ignored = parseIgnored(settings);
   const allTabs = await chrome.tabs.query({ windowId });
   const groups = await chrome.tabGroups.query({ windowId });
   const processed = await getProcessed();
+  const recheck = !full && shouldRecheck(windowId, settings, activity);
 
   const staleCutoff = settings.cleanupStale ? Date.now() - settings.staleDays * DAY_MS : 0;
   const candidates = allTabs.filter((t) => {
@@ -117,10 +148,13 @@ async function organizeWindow(windowId, { full }, settings, groupColors) {
     if (t.lastAccessed && t.lastAccessed < staleCutoff && !isProtected(t)) return false;
     if (full) return true;
     const placedUrl = processed[t.id];
-    if (t.groupId === NO_GROUP) return placedUrl !== t.url;
+    // On a re-check, look at every ungrouped tab again: one that had nowhere to go
+    // earlier may now belong with tabs opened since.
+    if (t.groupId === NO_GROUP) return recheck || placedUrl !== t.url;
     // Grouped tabs: only ones we placed that have since moved to a different topic.
     return placedUrl !== undefined && topicKey(placedUrl) !== topicKey(t.url);
   });
+  if (recheck) await markRechecked(windowId);
   if (!candidates.length) return 0;
 
   const candidateIds = new Set(candidates.map((t) => t.id));
@@ -366,8 +400,9 @@ async function organize({ full = false, forceCleanup = false } = {}) {
       (await chrome.tabGroups.query({})).filter((g) => g.title).map((g) => [g.title.toLowerCase(), { title: g.title, color: g.color }])
     );
     const windows = await chrome.windows.getAll({ windowTypes: ["normal"] });
+    const activity = await getWindowActivity();
     let placed = 0;
-    for (const w of windows) placed += await organizeWindow(w.id, { full }, settings, groupColors);
+    for (const w of windows) placed += await organizeWindow(w.id, { full }, settings, groupColors, activity);
     patch.lastPlaced = placed;
 
     if (settings.cleanupStale && (forceCleanup || Date.now() - (status.lastCleanup || 0) > CLEANUP_EVERY_MS)) {
@@ -442,8 +477,25 @@ chrome.alarms.onAlarm.addListener((alarm) => {
   if (alarm.name === "tick") onTick();
 });
 
-chrome.tabs.onUpdated.addListener((tabId, changeInfo) => {
-  if (changeInfo.status === "complete") scheduleOrganize();
+chrome.tabs.onUpdated.addListener(async (tabId, changeInfo, tab) => {
+  if (changeInfo.status !== "complete") return;
+  // Only a load in the tab you're looking at counts as using the window; a dashboard
+  // refreshing itself in the background shouldn't earn the window a re-check.
+  if (tab.active) await touchWindow(tab.windowId);
+  scheduleOrganize();
+});
+
+chrome.windows.onFocusChanged.addListener(async (windowId) => {
+  if (windowId === chrome.windows.WINDOW_ID_NONE) return;
+  await touchWindow(windowId);
+  scheduleOrganize();
+});
+
+chrome.windows.onRemoved.addListener(async (windowId) => {
+  const { touched, rechecked } = await getWindowActivity();
+  delete touched[windowId];
+  delete rechecked[windowId];
+  await chrome.storage.session.set({ touched, rechecked });
 });
 
 chrome.tabs.onRemoved.addListener(async (tabId) => {
@@ -455,6 +507,7 @@ chrome.tabs.onRemoved.addListener(async (tabId) => {
 });
 
 chrome.tabs.onActivated.addListener(async ({ tabId, windowId }) => {
+  await touchWindow(windowId);
   const { collapseInactive } = await getSettings();
   if (!collapseInactive) return;
   const tab = await chrome.tabs.get(tabId);

@@ -3,6 +3,7 @@ export const DEFAULTS = {
   model: "claude-opus-5",
   autoOrganize: true,
   intervalMinutes: 5,
+  recheckMinutes: 30,
   debounceSeconds: 8,
   sendPageText: true,
   collapseInactive: false,

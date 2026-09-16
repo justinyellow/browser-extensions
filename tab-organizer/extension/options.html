@@ -26,6 +26,10 @@
     <label>Background sweep every N minutes
       <input type="number" name="intervalMinutes" min="1" max="120">
     </label>
+    <label>Re-check ungrouped tabs every N minutes (0 = never)
+      <input type="number" name="recheckMinutes" min="0" max="240">
+    </label>
+    <p class="muted">A tab left ungrouped can join a group that formed later. Only windows you've used since the last re-check are looked at, so idle windows cost nothing.</p>
     <label class="row"><input type="checkbox" name="sendPageText"> Send a short page text snippet (better grouping; otherwise title + URL only)</label>
     <label class="row"><input type="checkbox" name="collapseInactive"> Collapse groups except the one you're in</label>
     <label class="row"><input type="checkbox" name="closeDuplicates"> Close duplicate tabs (keeps the one you used most recently)</label>
