@@ -4,14 +4,14 @@ Chrome extension that groups tabs by topic with Claude, cleans up stale and dupl
 
 ## Install
 
+See the [root README](../README.md#install) for clone and Load unpacked. In this folder:
+
 ```bash
 npm ci
 npm run build
 ```
 
-Then in Chrome: `chrome://extensions` → Developer mode → **Load unpacked** → select the `extension/` folder.
-
-After pulling changes, run `npm run build` again and click reload on the extension card.
+Then load the `extension/` directory in `chrome://extensions`. After pulling changes, build again and click Reload.
 
 ## Setup
 

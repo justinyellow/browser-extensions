@@ -4,12 +4,14 @@ Chrome extension for filing bugs in your own deployed apps without leaving the p
 
 ## Install
 
+See the [root README](../README.md#install) for clone and Load unpacked. Shortcut once loaded: `Alt+Shift+B`. In this folder:
+
 ```bash
 npm ci
 npm run build
 ```
 
-Then in Chrome: `chrome://extensions` → Developer mode → **Load unpacked** → select the `extension/` folder. Shortcut: `Alt+Shift+B`.
+Then load the `extension/` directory in `chrome://extensions`.
 
 ## Setup
 

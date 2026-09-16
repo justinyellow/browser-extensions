@@ -3,7 +3,7 @@
   "name": "Claude Tab Organizer",
   "version": "1.0.0",
   "description": "Continuously sorts your tabs into topic groups using Claude.",
-  "homepage_url": "https://github.com/justinyellow/claude-browser-extensions",
+  "homepage_url": "https://github.com/justinyellow/browser-extensions",
   "permissions": [
     "tabs",
     "tabGroups",

@@ -1,5 +1,5 @@
 {
-  "name": "claude-browser-extensions",
+  "name": "browser-extensions",
   "private": true,
   "type": "module",
   "scripts": {

@@ -3,7 +3,7 @@
   "name": "Bug Capture",
   "version": "1.0.0",
   "description": "Turns a bug you just saw in one of your own apps into a GitHub issue: screenshot, console errors, failed requests, and Claude-written repro steps.",
-  "homepage_url": "https://github.com/justinyellow/claude-browser-extensions",
+  "homepage_url": "https://github.com/justinyellow/browser-extensions",
   "permissions": ["tabs", "activeTab", "storage", "scripting"],
   "host_permissions": ["<all_urls>"],
   "background": {

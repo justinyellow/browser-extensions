@@ -8,12 +8,14 @@ Chrome extension that connects the page you're on to your Obsidian vault.
 
 ## Install
 
+See the [root README](../README.md#install) for clone and Load unpacked. In this folder:
+
 ```bash
 npm ci
 npm run build
 ```
 
-Then in Chrome: `chrome://extensions` → Developer mode → **Load unpacked** → select the `extension/` folder.
+Then load the `extension/` directory in `chrome://extensions`.
 
 ## Setup
 

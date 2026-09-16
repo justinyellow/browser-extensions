@@ -3,7 +3,7 @@
   "name": "Vault Context",
   "version": "1.0.0",
   "description": "Shows which of your Obsidian notes relate to the page you're on, and clips selections, tables and links into them.",
-  "homepage_url": "https://github.com/justinyellow/claude-browser-extensions",
+  "homepage_url": "https://github.com/justinyellow/browser-extensions",
   "permissions": ["tabs", "storage", "contextMenus", "scripting"],
   "host_permissions": ["<all_urls>"],
   "background": {

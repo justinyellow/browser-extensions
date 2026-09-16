@@ -2,7 +2,7 @@
 
 Paste these into each item. Keep one purpose per listing.
 
-Privacy policy: https://github.com/justinyellow/claude-browser-extensions/blob/main/PRIVACY.md
+Privacy policy: https://github.com/justinyellow/browser-extensions/blob/main/PRIVACY.md
 
 ---
 
@@ -22,7 +22,7 @@ The extension can auto-organize after a page loads, close duplicate tabs, and tr
 
 This extension does not create an account and does not send your tabs to the developer. Traffic goes to Anthropic only when you have set a key and a grouping or cleanup run happens, and to your local Obsidian server only if you enable it.
 
-Source: https://github.com/justinyellow/claude-browser-extensions
+Source: https://github.com/justinyellow/browser-extensions
 
 **Category:** Productivity  
 **Language:** English
@@ -57,7 +57,7 @@ Bug Capture is for people who ship their own web apps. On a mapped host it recor
 
 You map hosts to GitHub repos in Settings (or import a JSON config). Optional GitHub Projects fields and screenshot attach are supported. The Anthropic and GitHub credentials are yours; nothing is sent to the extension author.
 
-Source: https://github.com/justinyellow/claude-browser-extensions
+Source: https://github.com/justinyellow/browser-extensions
 
 **Category:** Developer tools  
 **Language:** English
@@ -91,7 +91,7 @@ Right-click or use the popup to append the selection, a table, or the page link 
 
 The extension talks to localhost (or the REST URL you set). It does not sync your vault to any cloud service.
 
-Source: https://github.com/justinyellow/claude-browser-extensions
+Source: https://github.com/justinyellow/browser-extensions
 
 **Category:** Productivity  
 **Language:** English

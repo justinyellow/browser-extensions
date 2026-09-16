@@ -1,4 +1,4 @@
-# Claude browser extensions
+# Browser extensions
 
 Chrome extensions that use Claude (and optionally Obsidian) to file bugs, group tabs, and clip pages into a vault. Each folder is a self-contained extension with its own build.
 
@@ -23,15 +23,52 @@ flowchart LR
   VC --> Obsidian
 ```
 
-## Loading an extension
+## Install
+
+You need [Node.js](https://nodejs.org/) 20+ and Chrome (or Chromium). These are unpacked developer extensions until they are on the Chrome Web Store.
+
+**1. Get the code**
 
 ```bash
-cd <extension>
+git clone https://github.com/justinyellow/browser-extensions.git
+cd browser-extensions
+```
+
+**2. Build the extension you want** (or all three)
+
+```bash
+cd tab-organizer   # or bug-capture / vault-context
 npm ci
 npm run build
 ```
 
-Chrome → `chrome://extensions` → Developer mode → **Load unpacked** → select the extension's `extension/` folder.
+To build every extension from the repo root:
+
+```bash
+npm run build --prefix bug-capture
+npm run build --prefix tab-organizer
+npm run build --prefix vault-context
+```
+
+**3. Load it in Chrome**
+
+1. Open `chrome://extensions`
+2. Turn on **Developer mode** (top right)
+3. Click **Load unpacked**
+4. Select that extension’s `extension/` folder — for example `tab-organizer/extension`, not the repo root
+
+Repeat Load unpacked for each extension you use.
+
+**4. Settings**
+
+Click the puzzle-piece icon → the extension → **Settings** (or Details → Extension options).
+
+- All three: paste your **Anthropic API key** if the feature uses Claude
+- **Tab Organizer:** grouping works with just that key. Obsidian is off until you enable it in Settings
+- **Bug Capture:** also needs a GitHub token and a host → repo map (or import a JSON config)
+- **Vault Context:** needs the Obsidian Local REST API key (this one is for vault users)
+
+After `git pull`, run `npm run build` in that folder again and click **Reload** on the extension card.
 
 ## Config files
 
