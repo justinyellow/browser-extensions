@@ -20,4 +20,14 @@ Then load the `extension/` directory in `chrome://extensions`. After pulling cha
 
 Copy [`../configs/tab-organizer.example.json`](../configs/tab-organizer.example.json), fill in keys, then Settings → **Import…**.
 
+## Controlling how it groups
+
+Chrome cannot nest tab groups, so a shared colour stands in for the company or project and the name is just the workstream — “Code Review”, not “Acme · Code Review”.
+
+- **How finely to group** (Settings, or the popup): *coarse* is one group per project or company, *balanced* splits a company into workstreams, *fine* splits by repo or surface. Standing tools you keep open across every project — calendar, meetings, email, HR, expenses — are grouped by what they are for, and this setting decides whether that is one “Admin” group or several.
+- **Your own grouping rules**: free text added to the grouping prompt and applied ahead of the built-in rules, so they win wherever they disagree. While this is set, group names are used exactly as returned, so you can ask for name prefixes if you want them.
+- **Extra context for every Claude request**: background that also applies to stale-tab cleanup, notes, and the digest.
+
+After changing any of these, use **Regroup everything** in the popup — a normal run leaves already-grouped tabs where they are.
+
 Settings are stored per machine. If you enable Obsidian, notes sync however your vault syncs. Vault folders are configurable.

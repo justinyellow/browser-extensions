@@ -188,7 +188,12 @@ async function organizeWindow(windowId, { full }, settings, groupColors, activit
 
     const { assignments, usage } = await classifyTabs(settings, { existingGroups, otherWindowGroups, tabs });
     placed += await applyAssignments(windowId, assignments, batch, groupColors);
-    await markProcessed(batch);
+    // A tab Claude never answered for was dropped, not judged. Leaving it unprocessed
+    // means the next sweep retries it instead of it sitting ungrouped until a recheck.
+    const answered = new Set(assignments.map((a) => a.tabId));
+    const missing = batch.filter((t) => !answered.has(t.id));
+    if (missing.length) console.warn("[TabOrganizer] no assignment returned for", missing.length, "tabs");
+    await markProcessed(batch.filter((t) => answered.has(t.id)));
     await addUsage(usage);
   }
   return placed;

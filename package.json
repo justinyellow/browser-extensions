@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node --test shared/*.test.js",
+    "test": "node --test shared/*.test.js tab-organizer/src/*.test.js",
     "build": "npm run build --prefix bug-capture && npm run build --prefix tab-organizer && npm run build --prefix vault-context",
     "pack": "node scripts/pack.mjs"
   }

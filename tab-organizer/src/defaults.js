@@ -18,4 +18,6 @@ export const DEFAULTS = {
   vaultFolders: "00-Inbox\n10-Areas\n20-Projects\n30-Resources",
   ignoredDomains: "",
   customInstructions: "",
+  groupingGranularity: "balanced",
+  groupingInstructions: "",
 };

@@ -19,6 +19,8 @@
     "digestHour": 21,
     "vaultFolders": "00-Inbox\n10-Areas\n20-Projects\n30-Resources",
     "ignoredDomains": "",
-    "customInstructions": ""
+    "customInstructions": "",
+    "groupingGranularity": "balanced",
+    "groupingInstructions": ""
   }
 }

@@ -1,7 +1,7 @@
 :root { color-scheme: light dark; font: 14px system-ui, sans-serif; background: Canvas; color: CanvasText; }
 body { margin: 0; padding: 16px; }
 h1 { font-size: 16px; margin: 0 0 12px; }
-.popup { width: 260px; display: flex; flex-direction: column; gap: 8px; }
+.popup { width: 280px; display: flex; flex-direction: column; gap: 8px; }
 .options { max-width: 560px; margin: 0 auto; }
 form { display: flex; flex-direction: column; gap: 14px; }
 label { display: flex; flex-direction: column; gap: 4px; }

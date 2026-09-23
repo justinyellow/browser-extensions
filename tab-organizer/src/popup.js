@@ -2,18 +2,16 @@ const $ = (id) => document.getElementById(id);
 const LABELS = { save: "Bookmarked", obsidian: "Saved to Obsidian", close: "Closed", duplicate: "Duplicate" };
 
 async function render() {
-  const { status = {}, autoOrganize = true, apiKey, obsidianEnabled = false, cleaned = [] } = await chrome.storage.local.get([
-    "status",
-    "autoOrganize",
-    "apiKey",
-    "obsidianEnabled",
-    "cleaned",
-  ]);
+  const { status = {}, autoOrganize = true, apiKey, obsidianEnabled = false, cleaned = [], groupingGranularity = "balanced" } =
+    await chrome.storage.local.get(["status", "autoOrganize", "apiKey", "obsidianEnabled", "cleaned", "groupingGranularity"]);
   $("autoOrganize").checked = autoOrganize;
+  $("groupingGranularity").value = ["coarse", "balanced", "fine"].includes(groupingGranularity)
+    ? groupingGranularity
+    : "balanced";
   $("saveTab").hidden = !obsidianEnabled;
   $("digest").hidden = !obsidianEnabled;
   const busy = !!status.running;
-  for (const id of ["organize", "saveTab", "digest", "regroup", "cleanup", "ungroup"]) $(id).disabled = busy;
+  for (const id of ["organize", "saveTab", "digest", "regroup", "cleanup", "ungroup", "groupingGranularity"]) $(id).disabled = busy;
 
   const el = $("status");
   el.classList.toggle("error", !!status.lastError || !apiKey);
@@ -47,6 +45,7 @@ async function render() {
 }
 
 $("autoOrganize").addEventListener("change", (e) => chrome.storage.local.set({ autoOrganize: e.target.checked }));
+$("groupingGranularity").addEventListener("change", (e) => chrome.storage.local.set({ groupingGranularity: e.target.value }));
 $("organize").addEventListener("click", () => chrome.runtime.sendMessage({ type: "organize" }));
 async function runAction(buttonId, working, message) {
   $(buttonId).disabled = true;

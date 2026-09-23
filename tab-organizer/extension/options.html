@@ -61,10 +61,23 @@
     <label>Ignored domains (never sent to Claude, never grouped)
       <textarea name="ignoredDomains" rows="3" placeholder="mybank.com, mail.google.com"></textarea>
     </label>
-    <label>Grouping preferences
-      <textarea name="customInstructions" rows="4" placeholder="e.g. Keep a group for the house move. Never group my banking tabs. Docs for one library go together."></textarea>
+    <label>How finely to group
+      <select name="groupingGranularity">
+        <option value="coarse">Coarse — one group per project or company; all admin tools under "Admin"</option>
+        <option value="balanced">Balanced — split a company into workstreams; admin tools by function ("Meetings", "Email")</option>
+        <option value="fine">Fine — split by repo or surface; admin tools by individual tool ("Calendar", "Expenses")</option>
+      </select>
     </label>
-    <p class="muted">Tabs are only grouped when they are about the same specific thing, so one-off tabs are left ungrouped on purpose. Name the groups you want here, or the ones you never want.</p>
+    <p class="muted">Chrome cannot nest groups, so groups from the same company or project share a colour instead of a name prefix — names stay short ("Code Review", "Payroll"). Standing tools you keep open across every project (calendar, meetings, email, HR, expenses) are grouped by what they are for rather than left loose. After changing this, use Regroup everything in the popup.</p>
+    <label>Your own grouping rules
+      <textarea name="groupingInstructions" rows="6" placeholder="One rule per line, e.g.&#10;Keep a group called House Move for anything about the move.&#10;Never group my banking tabs.&#10;Put all Jira and Linear tickets in Tickets.&#10;Docs for one library go together."></textarea>
+    </label>
+    <p class="muted">Added to the grouping prompt and applied ahead of the built-in rules, so these win wherever they disagree. While this box has anything in it, group names are used exactly as Claude returns them — the automatic trim of a "Company · Name" prefix steps aside, so you can ask for prefixes here if you actually want them.</p>
+    <label>Extra context for every Claude request
+      <textarea name="customInstructions" rows="3" placeholder="e.g. I work at Acme. Palette is our design system. Ignore anything about my side project."></textarea>
+    </label>
+    <p class="muted">Background that also applies to stale-tab cleanup, Obsidian notes, and the daily digest — not just grouping.</p>
+    <p class="muted">Tabs are only grouped when they are about the same workstream, so one-off tabs are left ungrouped on purpose. Name the groups you want above, or the ones you never want.</p>
     <fieldset>
       <legend>Config file</legend>
       <p class="muted">Import a JSON file with keys and settings, or export the current ones to another machine. The file can contain secrets — do not commit it.</p>

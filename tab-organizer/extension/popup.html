@@ -7,6 +7,13 @@
 <body class="popup">
   <h1>Tab Organizer</h1>
   <label class="row"><input type="checkbox" id="autoOrganize"> Auto-organize</label>
+  <label>Grouping
+    <select id="groupingGranularity">
+      <option value="coarse">Coarse (company / project)</option>
+      <option value="balanced">Balanced (workstreams)</option>
+      <option value="fine">Fine (repo / surface)</option>
+    </select>
+  </label>
   <button id="organize">Organize new tabs</button>
   <button id="saveTab" class="secondary">Save this tab to Obsidian</button>
   <button id="digest" class="secondary">Write today's digest</button>
